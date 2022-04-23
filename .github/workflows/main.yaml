@@ -43,9 +43,15 @@ jobs:
     - name: Package
       run: cmake --build ${{github.workspace}}/build --config ${{ matrix.build_type }} --target package
       
-    - uses: actions/upload-artifact@v3
+    - name: Create multiplatform artifact for github
+      uses: actions/upload-artifact@v3
       with:
         name: my-artifact-multiplatform
+        path: ${{github.workspace}}/build/Library-*
+    - name: Create per-platform artifacts for github
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact-multiplatform-${{ matrix.os }}
         path: ${{github.workspace}}/build/Library-*
         
         
