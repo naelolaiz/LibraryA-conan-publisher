@@ -33,15 +33,16 @@ jobs:
     - name: Package
       run: cmake --build ${{github.workspace}}/build --config ${{ matrix.build_type }} --target package
       
+    - run: echo repository_name=${GITHUB_REPOSITORY#*\/} >> $GITHUB_ENV
     - name: Create multiplatform artifact for github
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.repository }}-${{ github.ref_name }}-multiplatform-${{ github.sha }}
+        name: ${{ github.repository }}-${{ env.repository_name }}-multiplatform-${{ github.sha }}
         path: ${{github.workspace}}/build/LibraryA-*
     - name: Create per-platform artifacts for github
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.repository }}-${{ github.ref_name }}-${{ matrix.os }}-${{ github.sha }}
+        name: ${{ github.repository }}-${{ env.repository_name }}-${{ matrix.os }}-${{ github.sha }}
         path: ${{github.workspace}}/build/LibraryA-*
         
         
