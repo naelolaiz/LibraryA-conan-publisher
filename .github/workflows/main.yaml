@@ -34,7 +34,7 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ${{github.workspace}}/Library
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ${{github.workspace}}/LibraryA
 
     - name: Build
       # Build your program with the given configuration
@@ -47,12 +47,12 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact-multiplatform
-        path: ${{github.workspace}}/build/Library-*
+        path: ${{github.workspace}}/build/LibraryA-*
     - name: Create per-platform artifacts for github
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact-multiplatform-${{ matrix.os }}
-        path: ${{github.workspace}}/build/Library-*
+        path: ${{github.workspace}}/build/LibraryA-*
         
         
     - uses: jfrog/setup-jfrog-cli@v2
@@ -63,21 +63,21 @@ jobs:
       run: |
         # Ping the server
         jf rt ping
-        jf rt u "Library-*" default-generic-local/artifacts/${{ github.sha }}/
+        jf rt u "LibraryA-*" default-generic-local/artifacts/${{ github.sha }}/
       
     - name: Install Conan
       id: conan
       uses: turtlebrowser/get-conan@main      
 
     - name: Conan
-      working-directory: ${{github.workspace}}/Library
+      working-directory: ${{github.workspace}}/LibraryA
       run: |
-        conan new Library/${{ github.sha }} -t -s
+        conan new LibraryA/${{ github.sha }} -t -s
         conan install -s build_type=${{ matrix.build_type }} .
         conan create -s build_type=${{ matrix.build_type }} . demo/testing
         conan remote add my-conan-repo ${{ secrets.JF_SECRET_CONAN_REPO_URL }}
         conan user -p ${{ secrets.JF_SECRET_CONAN_API_KEY }} -r my-conan-repo ${{ secrets.JF_SECRET_CONAN_USER }}
-        conan upload -r my-conan-repo --all --no-overwrite recipe Library/${{ github.sha }}@demo/testing
+        conan upload -r my-conan-repo --all --no-overwrite recipe LibraryA/${{ github.sha }}@demo/testing
 
     - name: Test
       working-directory: ${{github.workspace}}/build

@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Library.h"
+#include "LibraryA.h"
 
-void Library::runme() const
+void LibraryA::runme() const
 {
     std::cout << "Hello world!" << std::endl;
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-class Library
+class LibraryA
 {
 public: 
-    Library() = default;
+    LibraryA() = default;
     void runme() const;
 };
