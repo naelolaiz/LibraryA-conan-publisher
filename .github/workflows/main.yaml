@@ -36,12 +36,12 @@ jobs:
     - name: Create multiplatform artifact for github
       uses: actions/upload-artifact@v3
       with:
-        name: my-artifact-multiplatform
+        name: multiplatform-artifact
         path: ${{github.workspace}}/build/LibraryA-*
     - name: Create per-platform artifacts for github
       uses: actions/upload-artifact@v3
       with:
-        name: my-artifact-multiplatform-${{ matrix.os }}
+        name: ${{ matrix.os }}-artifact
         path: ${{github.workspace}}/build/LibraryA-*
         
         
