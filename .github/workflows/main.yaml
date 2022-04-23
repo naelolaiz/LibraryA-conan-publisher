@@ -33,16 +33,23 @@ jobs:
     - name: Package
       run: cmake --build ${{github.workspace}}/build --config ${{ matrix.build_type }} --target package
       
-    - run: echo repository_name=${GITHUB_REPOSITORY#*\/} >> $GITHUB_ENV
+    - name: Strip repository name
+      id: strip_repo_name
+      uses: ashley-taylor/regex-property-action@v1.2
+      with:
+        value: ${{ github.repository }}
+        regex: ".*/"
+        flags: "" # Optional, defaults to "g"
+        replacement: ""
     - name: Create multiplatform artifact for github
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ env.repository_name }}-${{ github.ref_name  }}-multiplatform-${{ github.sha }}
+        name: ${{ steps.strip_repo_name.outputs.value }}-${{ github.ref_name  }}-multiplatform-${{ github.sha }}
         path: ${{github.workspace}}/build/LibraryA-*
     - name: Create per-platform artifacts for github
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ env.repository_name }}-${{ github.ref_name }}-${{ matrix.os }}-${{ github.sha }}
+        name: ${{ steps.strip_repo_name.outputs.value }}-${{ github.ref_name }}-${{ matrix.os }}-${{ github.sha }}
         path: ${{github.workspace}}/build/LibraryA-*
         
         
