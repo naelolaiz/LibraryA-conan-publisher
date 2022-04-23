@@ -53,7 +53,7 @@ jobs:
       run: |
         # Ping the server
         jf rt ping
-        jf rt u "LibraryA-*" default-generic-local/artifacts/${{ github.sha }}/
+        jf rt u "LibraryA-*" ${{ secrets.JF_GENERIC_REPO_NAME }}/artifacts/${{ github.sha }}/
       
     - name: Install Conan
       id: conan
@@ -71,6 +71,4 @@ jobs:
 
     - name: Test
       working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration.  
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{ matrix.build_type }}
