@@ -71,7 +71,7 @@ jobs:
         conan create -s build_type=${{ matrix.build_type }} . demo/testing
         conan remote add my-conan-repo ${{ secrets.JF_SECRET_CONAN_REPO_URL }}
         conan user -p ${{ secrets.JF_SECRET_CONAN_API_KEY }} -r my-conan-repo ${{ secrets.JF_SECRET_CONAN_USER }}
-        conan upload Library/${{ github.sha }}@demo/testing -r my-conan-repo --all
+        conan upload -r my-conan-repo --all --no-overwrite recipe Library/${{ github.sha }}@demo/testing
 
     - name: Test
       working-directory: ${{github.workspace}}/build
