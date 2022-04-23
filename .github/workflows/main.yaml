@@ -35,7 +35,7 @@ jobs:
       
     - name: Strip repository name
       id: strip_repo_name
-      uses: ashley-taylor/regex-property-action@v1.2
+      uses: ashley-taylor/regex-property-action@1.2
       with:
         value: ${{ github.repository }}
         regex: ".*/"
