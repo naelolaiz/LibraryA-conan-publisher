@@ -12,6 +12,7 @@ install(TARGETS LibraryA DESTINATION "."
         )
 set_target_properties(LibraryA PROPERTIES CXX_STANDARD 11)
 
+set(CPACK_GENERATOR "TGZ")
 set(CPACK_PACKAGE_NAME LibraryA-${CMAKE_BUILD_TYPE})
 include(CPack)
 
