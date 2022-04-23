@@ -37,12 +37,12 @@ jobs:
     - name: Create multiplatform artifact for github
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.repository }}-${{ env.repository_name }}-multiplatform-${{ github.sha }}
+        name: ${{ env.repository_name }}-${{ github.ref_name  }}-multiplatform-${{ github.sha }}
         path: ${{github.workspace}}/build/LibraryA-*
     - name: Create per-platform artifacts for github
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.repository }}-${{ env.repository_name }}-${{ matrix.os }}-${{ github.sha }}
+        name: ${{ env.repository_name }}-${{ github.ref_name }}-${{ matrix.os }}-${{ github.sha }}
         path: ${{github.workspace}}/build/LibraryA-*
         
         
