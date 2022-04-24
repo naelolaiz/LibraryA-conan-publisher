@@ -90,5 +90,5 @@ jobs:
         conan upload -r my-conan-repo --all --no-overwrite recipe LibraryA/${{ github.sha }}@demo/testing
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{github.workspace}}/build/test_package
       run: ctest -C ${{ matrix.build_type }}

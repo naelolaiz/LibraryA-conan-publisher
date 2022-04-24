@@ -1,5 +1,6 @@
 #include "LibraryA.h"
 
 int main() {
-    LibraryA();
+    LibraryA l;
+    l.runme();
 }

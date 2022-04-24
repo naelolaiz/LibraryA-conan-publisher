@@ -12,6 +12,8 @@ install(TARGETS LibraryA DESTINATION "."
         )
 set_target_properties(LibraryA PROPERTIES CXX_STANDARD 11)
 
+target_include_directories(LibraryA PUBLIC .)
+
 set(CPACK_GENERATOR "TGZ")
 set(CPACK_PACKAGE_NAME LibraryA-${CMAKE_BUILD_TYPE})
 include(CPack)
@@ -35,8 +37,8 @@ check_required_components(Foo)
 
 configure_package_config_file(${CMAKE_CURRENT_BINARY_DIR}/LibraryAConfig.cmake.in
 	${CMAKE_CURRENT_BINARY_DIR}/LibraryAConfig.cmake
-	INSTALL_DESTINATION ${LIB_INSTALL_DIR}/LibraryA/cmake)
-	#  PATH_VARS INCLUDE_INSTALL_DIR SYSCONFIG_INSTALL_DIR)
+	INSTALL_DESTINATION ${LIB_INSTALL_DIR}/LibraryA/cmake
+	PATH_VARS INCLUDE_INSTALL_DIR)
 write_basic_package_version_file(
 	${CMAKE_CURRENT_BINARY_DIR}/LibraryAConfigVersion.cmake
   VERSION 1.2.3
@@ -51,6 +53,8 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
                 "${CMAKE_BINARY_DIR}/conan.cmake"
                 TLS_VERIFY ON)
 endif()
+
+add_subdirectory(test_package)
 
 #include(${CMAKE_BINARY_DIR}/conan.cmake)
 
