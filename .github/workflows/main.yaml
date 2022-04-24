@@ -21,7 +21,7 @@ jobs:
       run: |
         import platform
         print(platform.uname())
-        print("${{ github.ref }})
+        print("${{ github.ref }}")
       shell: python
         
     - name: Configure CMake
