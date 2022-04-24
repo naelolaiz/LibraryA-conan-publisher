@@ -74,10 +74,12 @@ jobs:
         jf rt u "LibraryA-*" ${{ secrets.JF_GENERIC_REPO_NAME }}/artifacts/${{ github.job }}/${{ github.sha }}/
       
     - name: Install Conan
+      if: "!startsWith(github.ref, 'refs/tags/')"
       id: conan
       uses: turtlebrowser/get-conan@main      
 
     - name: Conan
+      if: "!startsWith(github.ref, 'refs/tags/')"
       working-directory: ${{github.workspace}}/LibraryA
       run: |
         conan new LibraryA/${{ github.sha }} -t -s
