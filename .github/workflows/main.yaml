@@ -70,7 +70,7 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: |
         jf rt ping
-        jf rt u "LibraryA-*" ${{ secrets.JF_GENERIC_REPO_NAME }}/artifacts/${{ github.sha }}/
+        jf rt u "LibraryA-*" ${{ secrets.JF_GENERIC_REPO_NAME }}/artifacts/${{ github.job }}/${{ github.sha }}/
       
     - name: Install Conan
       id: conan
