@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
+set(CMAKE_OSX_ARCHITECTURES arm64;x86_64 CACHE STRING "osx architectures") 
 project(LibraryA CXX)
 
 add_library(LibraryA LibraryA.cpp LibraryA.h)
