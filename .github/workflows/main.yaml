@@ -91,4 +91,4 @@ jobs:
 
     - name: Test
       working-directory: ${{github.workspace}}/build/test_package
-      run: ctest -C ${{ matrix.build_type }}
+      run: ctest -VV -C ${{ matrix.build_type }}
